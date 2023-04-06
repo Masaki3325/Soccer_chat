@@ -1,2 +1,4 @@
 Django==4.1
-psycopg2==2.9.1
+psycopg2-binary
+django-environ
+django[argon2]
