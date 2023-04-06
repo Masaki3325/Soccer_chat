@@ -1,0 +1,32 @@
+version: "3.2"
+
+services:
+  db:
+    container_name: soccer_chat_db
+    image: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    ports:
+    - 5432:5432
+    environment:
+      - POSTGRES_DB=soccer_chat
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      
+  web:
+    container_name: soccer_chat_web
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=soccer_chat
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
