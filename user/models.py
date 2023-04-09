@@ -35,7 +35,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50,verbose_name = 'ユーザー名')
     email = models.EmailField(max_length=255, unique=True,verbose_name = 'メールアドレス')
     favorite_league = models.CharField(max_length=50, choices=LEAGUE_CHOICE, default='Jリーグ', verbose_name = '好きなリーグ')
-    content = models.TextField(max_length=500,verbose_name = '自己紹介')
+    content = models.CharField(max_length=500,verbose_name = '自己紹介')
     image = models.FileField(upload_to='media/images',verbose_name = 'プロフィール画像')
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username'] 
