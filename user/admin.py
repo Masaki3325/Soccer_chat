@@ -1,20 +1,20 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
-from .forms import sign, UserChangeForm
+from .forms import UserSignupForm, UserChangeForm
 from django.contrib.auth.models import Group
 
 
 class CustomUserAdmin(UserAdmin):
     # ユーザーインスタンスを追加、変更するためのフォーム
     form = UserChangeForm
-    add_form = sign
+    add_form = UserSignupForm
     # ユーザーモデルの表示に使用されるフィールド
     list_display = ('email', 'username', 'is_staff')
     fieldsets = (
         ('ユーザー情報', {
             'fields': (
-                'username', 'email', 'password'
+                'username', 'email', 'password','favorite_league', 'content'
             )
         }),
         ('パーミッション', {
