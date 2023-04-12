@@ -4,5 +4,5 @@ LEAGUE_CHOICE = [
     ('La Liga','La Liga'),
     ('Serie A', 'Serie A'),
     ('Ligue 1', 'Ligue 1'),
-    ('J liague','Jリーグ')
+    ('J リーグs','Jリーグ')
 ]
