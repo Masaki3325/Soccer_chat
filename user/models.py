@@ -2,10 +2,12 @@ from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
+
 from .League import LEAGUE_CHOICE
-# Create your models here.
+
 
 class UserManager(BaseUserManager):
+    
     def create_user(self, username, email, password=None):
         if not email:
             raise ValueError('メールアドレスを必ず入力してください')
