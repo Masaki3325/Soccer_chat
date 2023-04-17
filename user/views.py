@@ -6,7 +6,6 @@ from django.views.generic import View
 
 from . import forms
 from .League import LEAGUE_CHOICE
-# Create your views here.
 
 
 class UnauthenticatedOnly(UserPassesTestMixin):
