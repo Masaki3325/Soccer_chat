@@ -10,7 +10,7 @@ from .League import LEAGUE_CHOICE
 user = get_user_model()
 
 
-class UserSignupForm(forms.ModelForm):
+class SignupForm(forms.ModelForm):
     email = forms.EmailField(label = 'メールアドレス')
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
 
@@ -26,7 +26,7 @@ class UserSignupForm(forms.ModelForm):
         fields = ['password','email']
 
     
-class UserDetailForm(forms.ModelForm):
+class DetailForm(forms.ModelForm):
     username = forms.CharField(max_length=50, label = 'ユーザー名')
     favorite_league = forms.ChoiceField(choices=LEAGUE_CHOICE, required=False,widget=forms.Select())
     content = forms.CharField(max_length=500,label = '自己紹介')
@@ -36,7 +36,7 @@ class UserDetailForm(forms.ModelForm):
         fields = ['username','favorite_league','content']
 
 
-class UserLoginForm(forms.Form):
+class LoginForm(forms.Form):
     email = forms.EmailField(label = 'メールアドレス')
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
 
@@ -45,7 +45,7 @@ class UserLoginForm(forms.Form):
         fields = ['password','email']
 
 
-class UserChangeForm(forms.ModelForm):
+class ChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
     class Meta:
