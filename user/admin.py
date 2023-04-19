@@ -3,12 +3,12 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 
-from .forms import UserSignupForm, UserChangeForm
+from .forms import SignupForm, ChangeForm
 
 
 class CustomUserAdmin(UserAdmin):
-    form = UserChangeForm
-    add_form = UserSignupForm
+    form = ChangeForm
+    add_form = SignupForm
 
     list_display = ('email', 'username', 'is_staff')
     fieldsets = (
