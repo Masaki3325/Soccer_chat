@@ -9,16 +9,12 @@ from .League import LEAGUE_CHOICE
 
 
 class UnauthenticatedOnly(UserPassesTestMixin):
-    """
-    ログイン済みのユーザーのアクセスを制限する
-    """
+    
     def test_func(self):
-        # ログイン状態じゃないかチェック
         return not self.request.user.is_authenticated
     
     def handle_no_permission(self):
-        # ログイン済みならregist_success_viewにリダイレクト
-        return redirect('accounts:regist_success_view')
+        return redirect('post:list')
 
 def home(request):
     return render(
@@ -27,10 +23,10 @@ def home(request):
 
 class UserSignUpView(FormView):
     template_name = 'user/signup.html'
-    form_class = forms.UserSignupForm
+    form_class = forms.SignupForm
 
     def post(self, request, *args, **kwargs):
-        user_form = forms.UserSignupForm(request.POST)
+        user_form = forms.SignupForm(request.POST)
         
         if user_form.is_valid():
             user_form.save()
@@ -44,13 +40,13 @@ class UserSignUpView(FormView):
 
 class UserDetailView(LoginRequiredMixin, FormView):
     template_name = 'user/detail.html'
-    form_class = forms.UserDetailForm
+    form_class = forms.DetailForm
 
     def get(self, request, *arugs, **kwargs):
         return render(request, self.template_name, {'leagues': LEAGUE_CHOICE})
 
     def post(self, request, *args,**kwargs):
-        detail_form = forms.UserDetailForm(request.POST)
+        detail_form = forms.DetailForm(request.POST)
         if detail_form.is_valid():
             user = request.user
             user.username = detail_form.cleaned_data['username']
@@ -65,7 +61,7 @@ class UserDetailView(LoginRequiredMixin, FormView):
 
 class UserLoginView(UnauthenticatedOnly ,FormView):
     template_name = 'user/login.html'
-    form_class = forms.UserLoginForm
+    form_class = forms.LoginForm
 
     def post(self, request, *args, **kwargs):
         email = request.POST['email']
