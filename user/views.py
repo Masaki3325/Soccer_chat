@@ -34,7 +34,7 @@ class UserSignUpView(FormView):
             login(request, user)
             return redirect('user:detail')
         else:
-            print("kkekek")
+            
             return render(request, self.template_name, {'regist_form': self.form_class})
 
 
