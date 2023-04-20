@@ -28,12 +28,19 @@ class Team(models.Model):
 
 
 class Post(Common):
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, verbose_name=("チーム"))
-    content = models.CharField(max_length=140)
+    title = models.CharField(max_length=50, default='タイトルC', verbose_name=('タイトル'))
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True, verbose_name=("チーム"))
+    content = models.CharField(max_length=140, verbose_name=('投稿内容'))
+
+    def __str__(self):
+        return self.title
 
    
 class Comment(Common):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name=("投稿"))
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="commented_post", verbose_name=("投稿"))
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=("投稿者"))
     created_at = models.DateTimeField(auto_now_add=True,  verbose_name=('投稿日'))
     content = models.CharField(max_length=80, verbose_name=('投稿内容'))
+
+    def __str__(self):
+        return self.content
