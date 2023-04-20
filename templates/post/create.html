@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block customcss %}
+<link href='{% static 'css/post/create.css' %}' rel="stylesheet">
+{% endblock %}
+{% block content %}
+  <h1>新規作成</h1>
+  <form method="post" class="create-form">
+    {% csrf_token %}
+    <div class="form-group">
+      <input type="text" name="title" class="form-control form-title">
+      <label class="form-label">タイトル</label>
+    </div>
+
+    <select name="team" class="form-select">
+    {% for team in teams %}
+        <option value="{{team.id}}">{{team}}</option>
+    {% endfor %}
+    </select>
+    
+    <div class="form-group">
+      <textarea name="content" class="form-control form-content"></textarea>
+      <label class="form-label">内容</label>
+    </div>
+    <button type="submit" class="btn-create">作成</button>
+  </form>
+{% endblock %}
+
+

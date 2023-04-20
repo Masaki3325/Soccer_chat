@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="message-body">
+    タイトル: "{{ post.title }}"
+    <br>
+    投稿内容: "{{ post.content }}"
+    <br>
+    を削除しますか
+</div>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <input class="button is-danger" type="submit" value="削除">
+</form>
+
+{% endblock content %}

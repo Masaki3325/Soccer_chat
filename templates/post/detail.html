@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block customcss %}
+<link href='{% static 'css/post/detail.css' %}' rel="stylesheet">
+{% endblock %}
+{% block content %}
+  <div class="post-detail">
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <div class="post-meta">
+      <p class="post-author">投稿者: {{ post.author.username }}</p>
+      <p class="post-date">投稿時間: {{ post.created_at }}</p>
+    </div>
+    <hr>
+    <h2>コメント</h2>
+    {% for comment in comments %}
+      <div class="comment">
+        <p>{{ comment.content }}</p>
+        <div class="comment-meta">
+          <p class="comment-author">{{ comment.author.username }}</p>
+          <p class="comment-date">{{ comment.created_at }}</p>
+        </div>
+      </div>
+      <hr>
+    {% empty %}
+      <p>コメントはまだありません</p>
+    {% endfor %}
+    <h3>コメントを追加する</h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ comment_form }}
+      <button type="submit">追加</button>
+    </form>
+    {% if post.author.id == request.user.id %}
+  <a style='right-top' href="{% url 'post:delete' post.id %}">削除ページへ</a>
+  {% endif %}
+  </div>
+  
+{% endblock %}
