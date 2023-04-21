@@ -8,4 +8,6 @@ urlpatterns = [
     path('detail/<int:pk>', views.PostDetailView.as_view(), name='detail'),
     path('create/', views.PostCreateView.as_view(), name='create'),
     path('delete/<int:pk>', views.PostDeleteView.as_view(), name='delete'),
+    path('teamlist/', views.PostTeamListView.as_view(), name='teamlist'),
+    path('teamdetail/<int:pk>', views.PostTeamDetailView.as_view(), name='teamdetail')
 ]
