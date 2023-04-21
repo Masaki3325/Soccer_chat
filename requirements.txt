@@ -3,3 +3,4 @@ psycopg2-binary
 django-environ
 django[argon2]
 Pillow
+django-google-maps
