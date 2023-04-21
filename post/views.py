@@ -1,17 +1,24 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import FormView, ListView, DetailView, DeleteView
+import googlemaps
 
 from .forms import CreateForm, CommentForm
 from .models import Post, Team
-# from .League import LEAGUE_CHOICE
+
 
 class PostListView(LoginRequiredMixin, ListView):
     template_name = 'post/list.html'
     model = Post
     ordering = ['-created_at']
     paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['team'] = Team.objects.all()
+        return context
 
 
 class PostCreateView(LoginRequiredMixin, FormView):
@@ -66,7 +73,33 @@ class PostDetailView(LoginRequiredMixin, DetailView):
         return redirect('post:detail', pk=post_id)
 
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'post/delete.html'
     model = Post
     success_url = reverse_lazy('post:list')
+
+
+class PostTeamListView(LoginRequiredMixin, ListView):
+    template_name = 'post/teamlist.html'
+    model = Team
+    ordering = ['league']
+
+
+class PostTeamDetailView(LoginRequiredMixin, DetailView):
+    template_name = 'post/teamdetail.html'
+    model = Team
+
+    def get(self, request, pk):
+        team_detail = Team.objects.get(id=pk)
+        all_post = Post.objects.filter(team_id=team_detail.id)
+        gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
+        geocode_result = gmaps.geocode(team_detail.location)
+        location = geocode_result[0]['geometry']['location']
+        lat, lng = location['lat'], location['lng']
+        context = {
+            'team': team_detail,
+            'posts': all_post,
+            'lat': lat, 
+            'lng': lng
+        }
+        return render(request, 'post/teamdetail.html', context)
