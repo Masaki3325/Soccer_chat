@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block customcss %}
+<link href='{% static 'css/post/teamdetail.css' %}' rel="stylesheet">
+{% endblock %}
+{% block content %}
+  <div class="row team-detail">
+    <div class="col-md-4">
+      <img class="team-logo" src="{{ team.logo.url }}">
+    </div>
+    <div class="col-md-4">
+      <h2>{{ team.temaname }}</h2>
+      <p>リーグ: {{ team.league }}</p>
+      <p>本拠地: {{ team.location }}</p>
+      <p>{{ team.content }}</p>
+    </div>
+    <div class="col-md-4">
+      <div id="map-container">
+        <div id="map" style="height:250px; width:250px;"></div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  {% if posts %}
+    <h3>関連する投稿</h3>
+    <div class="row">
+      {% for post in posts %}
+        <div class="col-md-3">
+          <div class="card mb-4 box-shadow">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'post:detail' post.pk %}">{{ post.title }}</a></h5>
+            </div>
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:4 %}
+          </div><div class="row">
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>まだ投稿がありません。</p>
+  {% endif %}
+  <script>
+    function initMap() {
+      var location = {lat: {{ lat }}, lng: {{ lng }}};
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: location
+      });
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+    }
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap"></script>
+{% endblock %}

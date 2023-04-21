@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block customcss %}
-<link href='{% static 'css/post/list.css' %}' rel="stylesheet">
+  <link href='{% static 'css/post/list.css' %}' rel="stylesheet">
 {% endblock %}
+
 {% block content %}
   <h1><i class="fas fa-book-open"></i> 全ての投稿</h1>
   <ul class="post-list">
     {% for post in object_list %}
       <li class="post-list-item">
+        <div class="team-logo">
+          <img class="post-logo" src="{{ post.team.logo.url }}" alt="{{ post.team.temaname }}のロゴ">            
+        </div>
         <div class="post-content">
-          <h2><a href="{% url 'post:detail' post.pk %}">{{ post.title }}</a></h2>
+          <div class="post-header">
+            <h2><a href="{% url 'post:detail' post.pk %}">{{ post.title }}</a></h2>
+          </div>
           <p>{{ post.content }}</p>
           <div class="post-meta">
             <p class="post-author"><i class="fas fa-user"></i> 投稿者: {{ post.author.username }}</p>

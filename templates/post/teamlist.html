@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block customcss %}
+<link href='{% static 'css/post/teamlist.css' %}' rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row team-list">
+    {% for team in object_list %}
+    <div class="col-md-3 mb-4">
+      <div class="card box-shadow">
+        <img class="card-img-top" src="{{ team.logo.url }}" alt="{{ team.temaname }}">
+        <div class="card-body">
+          <h5 class="card-title text-center">
+            <a href="{% url 'post:teamdetail' team.pk %}">{{ team.temaname }}</a>
+          </h5>
+        </div>
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:4 %}
+    </div>
+    <div class="row team-list">
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
