@@ -141,3 +141,5 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
+
+GOOGLE_MAPS_API_KEY = 'YOUR_API_KEY'
