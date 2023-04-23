@@ -29,3 +29,6 @@
 - コメント
 - チーム一覧、各チームのホームスタジアム場所を取得するAPI
 - チームごとの投稿の表示
+
+## ER図
+![er](https://user-images.githubusercontent.com/115523429/233841887-1ba2e535-45b3-441d-a897-311722dd4f86.png)
