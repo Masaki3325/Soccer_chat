@@ -1,6 +1,5 @@
 Django==4.1
 psycopg2-binary
 django-environ
-django[argon2]
 Pillow
 googlemaps
