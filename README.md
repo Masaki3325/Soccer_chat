@@ -3,6 +3,15 @@
 このサイトではサッカーに関する掲示板を作ることができ、またその掲示板に対してコメントをすることができる。他にもサッカーチームに関する基本情報を見ることがきる。
 
 レスポンシブには対応していません。
+## イメージ図
+- ホーム画面
+![ホーム画面](https://user-images.githubusercontent.com/115523429/233838131-416398ea-66e7-4bd9-9e14-4af0febf3e20.png)
+- 掲示板詳細画面
+![ホーム画面](https://user-images.githubusercontent.com/115523429/233838117-efbd79b3-4df7-4ac8-939d-b8858d0bb8f5.png)
+- チーム一覧画面
+![ホーム画面](https://user-images.githubusercontent.com/115523429/233838106-0e2feb6e-a679-4c85-b258-06dd6e39f14a.png)
+- チーム詳細画面
+![ホーム画面](https://user-images.githubusercontent.com/115523429/233838113-51f87c38-f8fd-4da9-8158-0b786ee63dd3.png)
 ## 使用技術
 
 - Django 4.1
